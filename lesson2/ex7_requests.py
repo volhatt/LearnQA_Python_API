@@ -29,7 +29,7 @@ print(f"#3 Response is {res3}")
 
 # 4 check all combination method / request type
 print("== == == #4 == == == ")
-end_pont = "https://playground.learnqa.ru/ajax/api/compare_query_type"
+end_point = "https://playground.learnqa.ru/ajax/api/compare_query_type"
 requests_methods = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'TRACE', 'PATCH']
 payloads = [
     {"method": "GET"},
@@ -45,13 +45,13 @@ errors = []
 for method in requests_methods:
     for payload in payloads:
         if method == "GET":
-            res = requests.get(end_pont, params=payload)
+            res = requests.get(end_point, params=payload)
         elif method == "POST":
-            res = requests.post(end_pont, data=payload)
+            res = requests.post(end_point, data=payload)
         elif method == "PUT":
-            res = requests.put(end_pont, data=payload)
+            res = requests.put(end_point, data=payload)
         elif method == "DELETE":
-            res = requests.delete(end_pont, data=payload)
+            res = requests.delete(end_point, data=payload)
         print(f"* * * *\nMethod {method}\npayload {payload}\nResponse is {res.text}")
         if method == payload["method"]:
             expected_response = '{"success":"!"}'
