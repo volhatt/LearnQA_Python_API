@@ -1,6 +1,5 @@
 import time
 import requests
-from jsonschema import validate
 
 
 """
