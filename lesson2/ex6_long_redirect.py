@@ -12,3 +12,7 @@ redirects = len(res.history)
 
 print(f"There are {redirects} redirects {res.history}")
 print(f"Finale URL is {res.url}")
+
+# output
+# There are 3 redirects [<Response [301]>, <Response [301]>, <Response [301]>]
+# Finale URL is https://www.learnqa.ru/
