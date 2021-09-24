@@ -4,7 +4,7 @@ import requests
 def test_cookie_request():
     """
     1. Call URL
-    2. Prints cookie from response
+    2. Assert cookie expected name and value
     :return:None
     """
 
