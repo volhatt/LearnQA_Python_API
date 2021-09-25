@@ -61,14 +61,6 @@ user_agent_params = [
             "device": "iPhone"
         }
     ],
-    [  # 6 my own
-        {"user_agent": "python-requests/2.26.0"},
-        {
-            "platform": "Unknown",
-            "browser": "Unknown",
-            "device": "Unknown"
-        }
-    ]
 ]
 @pytest.mark.parametrize('user_agent_data', user_agent_params)
 def test_user_agent(user_agent_data):
@@ -93,9 +85,9 @@ def test_user_agent(user_agent_data):
         f"Response returned wron user agent {response.json()['user_agent']}"
 
     # confirm that expected headers exist
-    assert response.json()["platform"], "There is no header 'platform' in response"
-    assert response.json()["browser"], "There is no header 'browser' in response"
-    assert response.json()["device"], "There is no header 'device' in response"
+    assert response.json().get("platform"), "There is no header 'platform' in response"
+    assert response.json().get("browser"), "There is no header 'browser' in response"
+    assert response.json().get("device"), "There is no header 'device' in response"
 
     errors = []
     # confirm that headers value are correct
@@ -103,23 +95,26 @@ def test_user_agent(user_agent_data):
         assert expected_platform == response.json()["platform"]
     except AssertionError:
         errors.append(f"'platform' expected {expected_platform} - actual {response.json()['platform']}")
-        # assert False,\
-        f"User Agent -> {user_agent} returns invalid 'platform' value in response {response.json()['platform']}"
+        #assert False,\
+        #    f"User Agent -> {user_agent} returns invalid 'platform' value in response {response.json()['platform']}"
 
     try:
         assert expected_browser == response.json()["browser"]
     except AssertionError:
         errors.append(f"'browser' expected {expected_browser} - actual {response.json()['browser']}")
-        # assert False, \
-        f"User Agent -> {user_agent} returns invalid 'browser' value in response {response.json()['browser']}"
+        #assert False,\
+        #    f"User Agent -> {user_agent} returns invalid 'browser' value in response {response.json()['browser']}"
 
     try:
         assert expected_device == response.json()["device"]
     except AssertionError:
         errors.append(f"'device' expected {expected_device} - actual {response.json()['device']}")
-        # assert False, \
-        f"User Agent -> {user_agent} returns invalid 'device' value in response {response.json()['device']}"
+        #assert False, \
+        #    f"User Agent -> {user_agent} returns invalid 'device' value in response {response.json()['device']}"
 
+    # catch failed assertion for test to run even if value is invalid
+    # and print result at the end of the test
     if len(errors) > 0:
-        print(f"User Agent {user_agent} returns invalid headers values in response:\n")
+        print(f"\nERROR ->User Agent {user_agent} returns invalid headers values in response:")
         print(* errors, sep=',')
+        assert False

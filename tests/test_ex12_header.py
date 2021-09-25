@@ -28,14 +28,3 @@ def test_header():
     print(f"Expected headers names in response -> {expected_headers_names}")
     print(f"expected_secret_token in response -> '{expected_secret_token}'")
 
-    {
-        'Date': 'Thu, 23 Sep 2021 23:52:07 GMT',
-        'Content-Type': 'application/json',
-        'Content-Length': '15',
-        'Connection': 'keep-alive',
-        'Keep-Alive': 'timeout=10',
-        'Server': 'Apache',
-        'x-secret-homework-header': 'Some secret value',
-        'Cache-Control': 'max-age=0',
-        'Expires': 'Thu, 23 Sep 2021 23:52:07 GMT'
-    }
