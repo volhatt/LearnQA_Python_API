@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  test_runner:
+    build: .
+    image: pytest_runner
+    container_name: pytest_runner_works
+    environment:
+      - ENV=dev
+    volumes: # via volumes show where to take tests
+      - .:/tests_project
+
+# to run :
+# docker-compose up --build

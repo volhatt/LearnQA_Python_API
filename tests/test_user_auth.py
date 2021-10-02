@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from lib.base_case import BaseCase
@@ -5,6 +6,7 @@ from lib.assertions import Assertions
 from lib.my_requests import MyRequests
 
 
+@allure.epic("Authorization cases")
 class TestUserAuth(BaseCase):
     exclude_params = [
         ("no_cookie"),
@@ -32,6 +34,7 @@ class TestUserAuth(BaseCase):
         # self.token = res1.headers.get("x-csrf-token")
         # self.user_id_from_auth_method = res1.json().get("user_id")
 
+    @allure.description("This test successfully authorized user by email and password")
     def test_auth_user(self):
         # res2 = requests.get(
         #     "https://playground.learnqa.ru/api/user/auth",
@@ -57,6 +60,8 @@ class TestUserAuth(BaseCase):
         # assert self.user_id_from_auth_method == user_id_from_check_method,\
         #     "User id from auth method is not equal to user id from check method"
 
+    @allure.description("This test checks authorization status w/o sending"
+                        "cookie or token")
     @pytest.mark.parametrize('condition', exclude_params)
     def test_negative_auth_check(self, condition):
 
