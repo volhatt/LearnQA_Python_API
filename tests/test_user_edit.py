@@ -204,7 +204,7 @@ class TestUserEdit(BaseCase):
         """
         update user name with invalid value - 1 char
         1. create user
-        2. authization
+        2. authorization
         3. try to update name with invalid value, confirm error message
         """
         # REGISTER USER
