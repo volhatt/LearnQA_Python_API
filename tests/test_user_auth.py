@@ -36,11 +36,6 @@ class TestUserAuth(BaseCase):
 
     @allure.description("This test successfully authorized user by email and password")
     def test_auth_user(self):
-        # res2 = requests.get(
-        #     "https://playground.learnqa.ru/api/user/auth",
-        #     headers={"x-csrf-token": self.token},
-        #     cookies={"auth_sid": self.auth_sid}
-        #     )
 
         res2 = MyRequests.get(
             "/user/auth",
@@ -66,19 +61,11 @@ class TestUserAuth(BaseCase):
     def test_negative_auth_check(self, condition):
 
         if condition == "no_cookie":
-            # res2 = requests.get(
-            #     "https://playground.learnqa.ru/api/user/auth",
-            #     headers={"x-csrf-token": self.token},
-            #     )
             res2 = MyRequests.get(
                 "/user/auth",
                 headers={"x-csrf-token": self.token},
             )
         else:
-            # res2 = requests.get(
-            #     "https://playground.learnqa.ru/api/user/auth",
-            #     cookies={"auth_sid": self.auth_sid}
-            #     )
             res2 = MyRequests.get(
                 "/user/auth",
                 cookies={"auth_sid": self.auth_sid}
