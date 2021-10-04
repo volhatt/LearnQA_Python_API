@@ -1,11 +1,14 @@
-import pytest
+import allure
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 
 
+@allure.epic("Delete user cases")
 class TestUserDelete(BaseCase):
 
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.description("Test confirm users with IDs 1, 2, 3, 4 or 5 can't be deleted")
     def test_delete_user_2(self):
         """
         negative - delete user id = 2
@@ -51,6 +54,8 @@ class TestUserDelete(BaseCase):
             "Unexpected result: User 2 shouldn't be deleted"
         )
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @allure.description("Test successfully delete just created user")
     def test_delete_just_created_user(self):
         """
         1. create user
@@ -102,6 +107,8 @@ class TestUserDelete(BaseCase):
         assert response4.text == expected_message, \
             f"Unexpected response content {response4.text}"
 
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.description("Test tries to delete one user with another user's authorization")
     def test_delete_another_auth_user(self):
         """
         1. create user 1 and user 2

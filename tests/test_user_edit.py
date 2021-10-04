@@ -1,9 +1,11 @@
+import allure
 import pytest
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 
 
+@allure.epic("Edit user cases")
 class TestUserEdit(BaseCase):
     """
     create user
@@ -11,6 +13,8 @@ class TestUserEdit(BaseCase):
     edit user
     """
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @allure.description("Verify it is possible to edit just created user")
     def test_edit_just_created_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -65,6 +69,8 @@ class TestUserEdit(BaseCase):
     # ex17 * * *
     user_params = ['password', 'username', 'firstName', 'lastName', 'email']
 
+    @allure.severity(allure.severity_level.BLOCKER)
+    @allure.description("Confirm it is prohibited to edit user w/o authorization")
     @pytest.mark.parametrize('param', user_params)
     def test_edit_user_not_auth(self, param):
         """
@@ -80,6 +86,8 @@ class TestUserEdit(BaseCase):
         assert response.content.decode("utf-8") == 'Auth token not supplied', \
             f"Unexpected response content {response.content}"
 
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.description("Confirm authorized user can't edit another user")
     def test_edit_another_user_auth(self):
         """
         1. create user 1
@@ -158,6 +166,8 @@ class TestUserEdit(BaseCase):
                 f"Wrong value for user {param}"
             )
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @allure.description("Confirm invalid email format (no @) not allowed")
     def test_edit_user_invalid_email(self):
         """
         try to update user email with invalid email format ( w/o '@')
@@ -200,6 +210,8 @@ class TestUserEdit(BaseCase):
         assert response3.text == 'Invalid email format',\
             f"Unexpected response content {response3.text}"
 
+    @allure.severity(allure.severity_level.NORMAL)
+    @allure.description("Confirm user name 1 chars is not accepted")
     def test_edit_name_short(self):
         """
         update user name with invalid value - 1 char
